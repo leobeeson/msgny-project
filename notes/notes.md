@@ -39,11 +39,19 @@
 ## TASK WBS
 1. Define Problem
     * Misogyny in chat messages...
-2. Define Challenges
     * Brand reputation
+2. Define Main Objective
+    * Add a misogyny detector to live system of chat messaging platform.
+    * Misogyny detector produces a score for every message.
+    * Messages should be analyzed and automatically redacted in real time.
+3. Define Challenges
     * Tradeoff: 
         * User privacy if going through their data, vs. 
         * Customer churn if allow toxic behaviour
+    * Technical:
+        * Large volume of streamed data: solutions must be light and fast.
+        * Embedded solution: can't impact the rest of the client's system. 
+        * Ambiguity in natural language (when is it misogyny and when is it a woman being sarcastic?) 
     * Ethical:
         * What does the client consider misogyny?
             * Damning/cursing
@@ -58,21 +66,17 @@
         * Who draws the line between outright misogyny and objective/mature conversations?
             * i.e. an aggressive troll vs a couple of friends talking about misogyny.
         * If a comment comes from a woman (e.g. a religious conservative), would it be considered misogynous?
-            * How do we know if it's not a fake profile?
-    * Technical:
-        * Large volume of streamed data: solutions must be light and fast.
-        * Embedded solution: can't impact the rest of the client's system. 
-        * Ambiguity in natural language (when is it misogyny and when is it a woman being sarcastic?)   
-3. Define Requirements
+            * How do we know if it's not a fake profile?  
+4. Define Requirements
     * Product:
         * Does it enable Group chats?
             * Assume it does.
             * #DOUBT: Would misogyny be greater in group chats than in 1:1 messages?
-    * Data:
-        * How many languages?
         * Media files?
             * Images
             * Audio
+    * Data:
+        * How many languages?
         * Encryption?
             * End-2-End would pose sever difficulties.
             * Assume it's not E2E.
@@ -95,13 +99,8 @@
             * Can you associate a flag to a specific conversation?
     * System:
         * ...
-4. Define Experiments
-    * Multiple technics/models.
-    * Academic benchmarks.
-    * Feedback from client SME and T&S.
-    * Beta test with cohort of users to flag when unredacted misogynistic messages filter through (i.e. false negatives).
-    * A/B test (if a client-side flagging system is available)
-5. Data Prepocessing:
+5. Assumptions of Client System 
+6. Data Prepocessing:
     * Decryption
     * Anonymisation
     * Language detection
@@ -119,7 +118,7 @@
         * KB-driven
         * Stemming
         * Lemmatization
-6. Modelling:
+7. Modelling:
     * String matching
     * regex pattern extraction
     * Produce labelled data programatically using string-matching and regex models
@@ -140,16 +139,30 @@
     * Data overheads
     * Training overheads
     * Production overheads
-8. Model Selection
+8. Define Experiments
+    * Misogyny greater in group chats?
+    * Multiple technics/models.
+    * Academic benchmarks.
+    * Feedback from client SME and T&S.
+    * Beta test with cohort of users to flag when unredacted misogynistic messages filter through (i.e. false negatives).
+    * A/B test (if a client-side flagging system is available)
+9. Model Selection
     * Justify
     * Value
         * Iteration Velocity
         * How soon can it be put into production?
         * How soon can you quantify results?
-9. Assumptions of Client System 
-10. High-level system architecture
-11. Low-level system design
 
+10. High-level system architecture
+    * Users that enable End-to-End encryption can have a minimal client-side misogyny detection service.
+        * Primarily word/phrase matching and regex running straigh from the application on users mobile devices or browsers.
+11. Low-level system design
+12. Work Breakdown Structure
+    * Work streams
+    * Work packages
+    * Milestones
+    * Deliverables
+    * Resourcing
 
 ### Scratpad
 * Handling/flagging of other toxic behaviour
@@ -163,4 +176,4 @@
         * Unless turned on, FB stores the data sent.
 * Queues: https://betterprogramming.pub/introduction-to-message-queue-with-rabbitmq-python-639e397cb668
 * PubSubs: -> for Groups
-
+* Spark streaming
